@@ -1,0 +1,7 @@
+.place-card__close {
+    width: 26px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }

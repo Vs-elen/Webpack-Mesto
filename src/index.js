@@ -1,4 +1,12 @@
-'use strict';
+import '../src/pages/index.css'
+import { Api } from './scripts/Api.js';
+import { Card } from './scripts/Card.js';
+import { CardList } from './scripts/CardList.js';
+import { FormValidator } from './scripts/FormValidator.js';
+import { Popup } from './scripts/Popup.js';
+import { UserInfo } from './scripts/UserInfo.js';
+
+
 (function () {
   const list = document.querySelector('.places-list');
   const inputName = document.querySelector('.popup__input_type_name');
@@ -18,7 +26,7 @@
     wrongUrl: 'Здесь должна быть ссылка',
   }
 
-
+  const URL_ENV = process.env.NODE_ENV === "development" ? 'http://praktikum.tk/cohort11' : 'https://praktikum.tk/cohort11';
 
 
 
@@ -63,7 +71,7 @@
 
 
   const cardList = new CardList(list, createCardCallback);
-  const api = new Api;
+  const api = new Api(URL_ENV);
 
   api.getCards().then(res => {
     cardList.render(res);

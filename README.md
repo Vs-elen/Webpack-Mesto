@@ -29,4 +29,4 @@ ES6, Babel, OOP, CSS3, HTML5, Webpack, OOP, BEM
 - Разместить production-билд на github pages - `npm run deploy`
 
 ## Ссылка на github pages:
-https://vs-elen.github.io/webpack-mesto
+https://vs-elen.github.io/Webpack-Mesto/

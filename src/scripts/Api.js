@@ -1,10 +1,11 @@
-class Api {
-    constructor() {
+export class Api {
+    constructor(baseURL) {
+        this.baseURL = baseURL;
 
     }
 
     getProfileInfo = () => {
-        return fetch('https://praktikum.tk/cohort11/users/me', {
+        return fetch(`${this.baseURL}/users/me`, {
             headers: {
                 authorization: '0489c5de-ce36-4587-b275-e5f69be7f1d1'
             }
@@ -20,7 +21,7 @@ class Api {
     }
 
     editProfileInfo = (newName, newJob) => {
-        return fetch('https://praktikum.tk/cohort11/users/me', {
+        return fetch(`${this.baseURL}/users/me`, {
             method: 'PATCH',
             headers: {
                 authorization: '0489c5de-ce36-4587-b275-e5f69be7f1d1',
@@ -41,7 +42,7 @@ class Api {
     }
 
     getCards = () => {
-        return fetch('https://praktikum.tk/cohort11/cards', {
+        return fetch(`${this.baseURL}/cards`, {
             headers: {
                 authorization: '0489c5de-ce36-4587-b275-e5f69be7f1d1'
             }

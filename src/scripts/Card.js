@@ -1,4 +1,4 @@
-class Card {
+export class Card {
     static template = document.querySelector('#place-card-template').content;
 
     constructor(name, link, openPopupCallback) {

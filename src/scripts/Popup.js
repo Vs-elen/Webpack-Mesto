@@ -1,4 +1,4 @@
-class Popup {
+export class Popup {
     constructor(popupItem, onCloseCall) {
         this.popup = popupItem;
         this.onCloseCall = onCloseCall;

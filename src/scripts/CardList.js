@@ -7,8 +7,8 @@ export class CardList {
 
   }
 
-  addCard(name, link) {
-    const instance = this.callbackCard(name, link);
+  addCard(name, link, id, owner) {
+    const instance = this.callbackCard(name, link, id, owner);
 
     this.container.append(instance);
 
@@ -18,7 +18,7 @@ export class CardList {
 
     array.forEach(item => {
 
-      this.addCard(item.name, item.link)
+      this.addCard(item.name, item.link, item._id, item.owner._id)
 
     })
 

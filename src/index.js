@@ -26,7 +26,7 @@ import { UserInfo } from './scripts/UserInfo.js';
     wrongUrl: 'Здесь должна быть ссылка',
   }
 
-  const URL_ENV = process.env.NODE_ENV === "development" ? 'http://praktikum.tk/cohort11' : 'https://praktikum.tk/cohort11';
+  // const URL_ENV = process.env.NODE_ENV === "development" ? 'https://nomoreparties.co/cohort11' : 'https://nomoreparties.co/cohort11';
 
 
 
@@ -57,21 +57,21 @@ import { UserInfo } from './scripts/UserInfo.js';
   const popupImageFrame = new Popup(document.querySelector('.popup_type_image-popup'));
 
 
-
+ const api = new Api();
 
   function imagePopupCallback(imageLink) {
     popupImage.src = imageLink;
     popupImageFrame.open();
   }
 
-  function createCardCallback(name, link) {
-    const newCardElem = new Card(name, link, imagePopupCallback);
-    return newCardElem.create(name, link);
+  function createCardCallback(name, link, id, owner) {
+    const newCardElem = new Card(name, link, id, owner, imagePopupCallback, api);
+    return newCardElem.create();
   }
 
 
   const cardList = new CardList(list, createCardCallback);
-  const api = new Api(URL_ENV);
+ 
 
   api.getCards().then(res => {
     cardList.render(res);
@@ -100,8 +100,14 @@ import { UserInfo } from './scripts/UserInfo.js';
 
   placeForm.addEventListener('submit', function (event) {
     event.preventDefault();
-    cardList.addCard(inputName.value, inputLink.value);
+    api.postCards(inputName.value, inputLink.value)
+    .then (obj => {
+    cardList.addCard(obj.name, obj.link, obj._id, obj.owner._id);
     popupPlace.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    });;
   })
 
   editForm.addEventListener('submit', function (event) {
@@ -121,6 +127,15 @@ import { UserInfo } from './scripts/UserInfo.js';
 
   })
 
+  // api.deleteCards()
+  // .then(() => {
+  //   console.log('удоли')
+  //   newCardElem.remove();
+  // })
+  // .catch((err) => {
+  //   console.log(err);
+  // });;
+
 
   document.querySelector('.user-info__menu-button').addEventListener('click', function (event) {
 
@@ -139,33 +154,10 @@ import { UserInfo } from './scripts/UserInfo.js';
     popupPlace.open();
   })
 
+  
+
 })();
 
 
 
-/*REVIEW. Резюме.
 
-Взаимодействие с сервером происходит совершенно правильно.
-
-Методы  класса Api имеют правильную структуру, проверяется статус ответа сервера.
-
-Учитывается асинхронность работы сервера - обработка ответа сервера и действия, которые должны выполниться после обработки ответа, помещены в метод
-then, выполняющийся после вызова метода класса Api с запросом  к серверу.
-
-В нужном месте расположен блок catch (в конце цепочки промисов).
-
-Форма профиля закрывается после обработки ответа от сервера.
-
-Что можно улучшить.
-
-1. Не очень правильно происходит валидация форм.
-В начале работы с формой карточки, при вводе информации в одно поле и появления под ним сообщения об ошибке, появляется сообщение "Это обязательное поле"
-и под другим полем, хотя, если в поле ничего ещё не вводили, под ним не должны высвечиваться никакие сообщения об ошибке.
-Нужно подумать почему так происходит и лучше исправить.
-
-
-Работа принимается.
-
-Желаю дальнейших успехов в обучении!
-
-*/

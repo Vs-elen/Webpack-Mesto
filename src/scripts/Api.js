@@ -78,9 +78,6 @@ export class Api {
             })
     }
 
-    // deleteCards = (id) => {
-    //     return fetch(`${this.baseURL}/cards/${id}`, {
-
     deleteCards = (id) => {
         return fetch(`${this.baseURL}/cards/${id}`, {
             method: 'DELETE',
@@ -96,6 +93,38 @@ export class Api {
                 return Promise.reject(`Ошибка: ${res.status}`);
             })
     }
+
+    likeCards = (id) => {
+        return fetch(`${this.baseURL}/cards/like/${id}`, {
+            method: 'PUT',
+            headers: {
+                authorization: '0489c5de-ce36-4587-b275-e5f69be7f1d1',
+            },
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            })
+    }
+    deleteLikes = (id) => {
+        return fetch(`${this.baseURL}/cards/like/${id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: '0489c5de-ce36-4587-b275-e5f69be7f1d1',
+            },
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            })
+    }
+
 
 }
 

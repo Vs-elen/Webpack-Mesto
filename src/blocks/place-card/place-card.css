@@ -9,6 +9,8 @@
 @import url(./__close/place-card__close.css);
 @import url(./__content/place-card__content.css);
 @import url(./__to-open/place-card__to-open.css);
+@import url(./__likes-number/place-card__likes-number.css);
+@import url(./__likes/place-card__likes.css);
 
 .place-card {
   width: 282px;

@@ -57,21 +57,21 @@ import { UserInfo } from './scripts/UserInfo.js';
   const popupImageFrame = new Popup(document.querySelector('.popup_type_image-popup'));
 
 
- const api = new Api();
+  const api = new Api();
 
   function imagePopupCallback(imageLink) {
     popupImage.src = imageLink;
     popupImageFrame.open();
   }
 
-  function createCardCallback(name, link, id, owner) {
-    const newCardElem = new Card(name, link, id, owner, imagePopupCallback, api);
+  function createCardCallback(name, link, id, owner, likes) {
+    const newCardElem = new Card({ name, link, id, owner, imagePopupCallback, api, likes });
     return newCardElem.create();
   }
 
 
   const cardList = new CardList(list, createCardCallback);
- 
+
 
   api.getCards().then(res => {
     cardList.render(res);
@@ -101,13 +101,13 @@ import { UserInfo } from './scripts/UserInfo.js';
   placeForm.addEventListener('submit', function (event) {
     event.preventDefault();
     api.postCards(inputName.value, inputLink.value)
-    .then (obj => {
-    cardList.addCard(obj.name, obj.link, obj._id, obj.owner._id);
-    popupPlace.close();
-    })
-    .catch((err) => {
-      console.log(err);
-    });;
+      .then(obj => {
+        cardList.addCard(obj.name, obj.link, obj._id, obj.owner._id, obj.likes);
+        popupPlace.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   })
 
   editForm.addEventListener('submit', function (event) {
@@ -154,7 +154,7 @@ import { UserInfo } from './scripts/UserInfo.js';
     popupPlace.open();
   })
 
-  
+
 
 })();
 
